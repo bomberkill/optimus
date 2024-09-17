@@ -1,0 +1,6 @@
+{
+    "welcome": "Bienvenue sur ",
+    "text": "Ce projet de démarrage Next.js inclut une configuration minimale pour le rendu côté serveur. Si vous souhaitez en savoir plus sur l'intégration Mantine + Next.js, suivez ",
+    "guide": "ce guide",
+    "end": ". Pour commencer, modifiez le fichier index.tsx."
+}
