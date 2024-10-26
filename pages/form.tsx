@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { GetStaticProps } from 'next';
+import { IconFile } from '@tabler/icons-react';
 import axios from 'axios';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -14,7 +15,7 @@ import {
   FileInput,
   Group,
   Input,
-  InputWrapper,
+  // InputWrapper,
   Loader,
   Radio,
   RadioGroup,
@@ -27,7 +28,6 @@ import {
 import { useForm, yupResolver } from '@mantine/form';
 import { useMediaQuery } from '@mantine/hooks';
 import { theme } from '@/theme';
-import { IconFile } from '@tabler/icons-react';
 
 export default function Form() {
   const { t } = useTranslation('form');
@@ -35,7 +35,7 @@ export default function Form() {
   const [currentStep, setCurrentStep] = useState('step3');
   const [randomCode, setRandomCode] = useState('');
   const [activeResend, setActiveResend] = useState(false);
-  const [codeSent, setCodeSent] = useState<"sent" | "notSent" | undefined>( undefined);
+  const [codeSent, setCodeSent] = useState<'sent' | 'notSent' | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
   const [secondLeft, setSecondLeft] = useState(30);
   const [clientType, setClientType] = useState('Entreprise');
@@ -48,8 +48,8 @@ export default function Form() {
   //   step6: {},
   // };
   type formDataType = {
-    [key: string]: any
-  }
+    [key: string]: any;
+  };
   const [formData, setFormData] = useState<formDataType>({
     step1: {},
     step2: {},
@@ -58,11 +58,19 @@ export default function Form() {
     step5: {},
     step6: {},
   });
-  const icon = <IconFile style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
+  const icon = <IconFile style={{ width: rem(18), height: rem(18) }} stroke={1.5} />;
   function generateRandomCode() {
+    console.log(randomCode);
     return Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit random code
   }
-  const entrepriseValues = { radio1: '', radio2: '', checkbox1: [], radio3: '', radio4: '', radio5: '' };
+  const entrepriseValues = {
+    radio1: '',
+    radio2: '',
+    checkbox1: [],
+    radio3: '',
+    radio4: '',
+    radio5: '',
+  };
   const PartnerValues = {
     checkbox1: [],
     radio1: '',
@@ -135,7 +143,7 @@ export default function Form() {
         radio5: '',
         input4: '',
         input5: null,
-      }
+      },
     },
     validationSchemas: {
       step1: Yup.object().shape({
@@ -226,17 +234,17 @@ export default function Form() {
         radio5: Yup.string().required(t('validation-schemas.step2.radio')),
         input4: Yup.string(),
         input5: Yup.mixed().nullable(),
-      })
+      }),
     },
   };
   const handleFormDataUpdate = (step: string, values: {}) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [step]: step === 'step4' ? {} : prevFormData[step],
-      [step]: values
+      [step]: values,
     }));
     console.log('values', values);
-  }
+  };
   useEffect(() => {
     const savedStep = localStorage.getItem('currentStep');
     const savedData = localStorage.getItem('formData');
@@ -246,7 +254,7 @@ export default function Form() {
     if (savedStep) {
       setCurrentStep(savedStep);
     }
-  },[])
+  }, []);
   const saveToLocalStorage = (savingStep: string, savingData: {}) => {
     localStorage.setItem('formData', JSON.stringify(savingData));
     localStorage.setItem('currentStep', savingStep);
@@ -284,29 +292,32 @@ export default function Form() {
     },
     functions: {
       step1: async () => {
-        console.log('allo1', isLoading)
+        console.log('allo1', isLoading);
         setIsLoading(true);
         console.log(stepForms.form.step1.values);
         const random = generateRandomCode();
         console.log('random code is', random);
         setRandomCode(random);
-        await axios.post('/api/send-mail', {
-          email: stepForms.form.step1.values.email,
-          code: random
-        }).then(() => {
-          console.log('Verification code sent successfully');
-          if(currentStep === "confirmationStep") setCodeSent("sent");
-          setCurrentStep('confirmationStep');
-        }).catch((err) => {
-          console.log('Fail to send verification code', err);
-          if(currentStep === "confirmationStep") setCodeSent("notSent");
-        });
+        await axios
+          .post('/api/send-mail', {
+            email: stepForms.form.step1.values.email,
+            code: random,
+          })
+          .then(() => {
+            console.log('Verification code sent successfully');
+            if (currentStep === 'confirmationStep') setCodeSent('sent');
+            setCurrentStep('confirmationStep');
+          })
+          .catch((err) => {
+            console.log('Fail to send verification code', err);
+            if (currentStep === 'confirmationStep') setCodeSent('notSent');
+          });
         setIsLoading(false);
-        console.log('allo3', isLoading)
+        console.log('allo3', isLoading);
         setCurrentStep('confirmationStep');
       },
       confirmationStep: () => {
-        handleFormDataUpdate("step1", stepForms.form.step1.values);
+        handleFormDataUpdate('step1', stepForms.form.step1.values);
         // setFormData((prevState) => ({
         //   ...prevState,
         //   email: stepForms.form.step1.values,
@@ -316,32 +327,32 @@ export default function Form() {
         saveToLocalStorage('step2', formData);
       },
       step2: () => {
-        handleFormDataUpdate("step2", stepForms.form.step2.values);
+        handleFormDataUpdate('step2', stepForms.form.step2.values);
         console.log('formadata:', formData);
         setCurrentStep('step3');
         saveToLocalStorage('step3', formData);
       },
       step3: () => {
-        handleFormDataUpdate("step3", stepForms.form.step3.values);
+        handleFormDataUpdate('step3', stepForms.form.step3.values);
         console.log('formadata:', formData);
         setClientType(stepForms.form.step3.values.radio);
         setCurrentStep('step4');
         saveToLocalStorage('step4', formData);
       },
       step4: () => {
-        handleFormDataUpdate("step4", stepForms.form.step4.values);
+        handleFormDataUpdate('step4', stepForms.form.step4.values);
         console.log('formadata:', formData);
         setCurrentStep('step5');
         saveToLocalStorage('step5', formData);
       },
       step5: () => {
-        handleFormDataUpdate("step5", stepForms.form.step5.values);
+        handleFormDataUpdate('step5', stepForms.form.step5.values);
         console.log('formadata:', formData);
         setCurrentStep('step6');
         saveToLocalStorage('step6', formData);
       },
       step6: () => {
-        handleFormDataUpdate("step6", stepForms.form.step6.values);
+        handleFormDataUpdate('step6', stepForms.form.step6.values);
         console.log('formadata:', formData);
         saveToLocalStorage('step6', formData);
       },
@@ -409,7 +420,7 @@ export default function Form() {
       setSecondLeft(30); // Réinitialiser à 60 secondes
       setActiveResend(false);
       const interval = setInterval(() => {
-        if (secondLeft != 0) {
+        if (secondLeft !== 0) {
           setSecondLeft((prevState) => {
             if (prevState > 0) {
               console.log(prevState);
@@ -420,18 +431,18 @@ export default function Form() {
               return 0;
             }
           });
-        };
+        }
       }, 1000);
       return () => clearInterval(interval);
     } else if (currentStep === 'step4') {
-      if(clientType === 'Entreprise') {
+      if (clientType === 'Entreprise') {
         // stepForms.form.step4.setValues(entrepriseValues);
         stepForms.form.step4.setInitialValues(entrepriseValues);
         stepForms.form.step4.setValues(entrepriseValues);
-      }else if (clientType === 'Partenaires') {
+      } else if (clientType === 'Partenaires') {
         stepForms.form.step4.setInitialValues(PartnerValues);
         stepForms.form.step4.setValues(PartnerValues);
-      };
+      }
     }
   }, [currentStep]);
   const step1 = () => {
@@ -449,7 +460,7 @@ export default function Form() {
         </Text>
         <form>
           <TextInput
-            pt={isSmallScreen ? theme.spacing?.xl : theme.spacing?.sm }
+            pt={isSmallScreen ? theme.spacing?.xl : theme.spacing?.sm}
             pb={theme.spacing?.lg}
             placeholder="example@example.com"
             {...stepForms.form.step1.getInputProps('email')}
@@ -494,13 +505,29 @@ export default function Form() {
               fz={theme.fontSizes?.sm}
               // td="underline"
               fw={600}
-              onClick={activeResend && codeSent === undefined ? stepForms.functions.step1 : () => {}}
+              onClick={
+                activeResend && codeSent === undefined ? stepForms.functions.step1 : () => {}
+              }
               ta="center"
-              c={activeResend && codeSent === undefined ? '#758ADD' : codeSent === "notSent" ? theme.colors?.red?.[0] : 'gray'}
+              c={
+                activeResend && codeSent === undefined
+                  ? '#758ADD'
+                  : codeSent === 'notSent'
+                    ? theme.colors?.red?.[0]
+                    : 'gray'
+              }
             >
-              {isLoading ? <Loader size={30} color={theme.colors?.red?.[0]}/> : codeSent === "sent" ? t('code.sent') : codeSent === "notSent" ? t('code.not-sent') : t('code.resend')}
+              {isLoading ? (
+                <Loader size={30} color={theme.colors?.red?.[0]} />
+              ) : codeSent === 'sent' ? (
+                t('code.sent')
+              ) : codeSent === 'notSent' ? (
+                t('code.not-sent')
+              ) : (
+                t('code.resend')
+              )}
             </Text>
-            {secondLeft != 0 && (
+            {secondLeft !== 0 && (
               <Text fz={theme.fontSizes?.sm} fw={600} ta="center" c="dark">
                 {` ${secondLeft}s`}
               </Text>
@@ -936,7 +963,7 @@ export default function Form() {
                   label={t('step4.customer.radio2.option2')}
                 />
               </RadioGroup>
-              <Box w={isSmallScreen ? "50%" : "100%"} mb={theme.spacing?.md}>
+              <Box w={isSmallScreen ? '50%' : '100%'} mb={theme.spacing?.md}>
                 <Input.Wrapper
                   error={stepForms.form.step4.errors.radio1}
                   label={t('step4.customer.radio1.label')}
@@ -1390,7 +1417,7 @@ export default function Form() {
                 withAsterisk
                 disabled={
                   stepForms.form.step4.values.radio10 === 'Non' ||
-                  stepForms.form.step4.values.radio10 == undefined
+                  stepForms.form.step4.values.radio10 === undefined
                 }
                 minRows={3}
                 placeholder={t('step4.customer.input.placeholder')}
@@ -1545,7 +1572,7 @@ export default function Form() {
         </Text>
         <form>
           <TextInput
-            w={isSmallScreen ? "50%" : "100%"}
+            w={isSmallScreen ? '50%' : '100%'}
             label={t('step5.input1.label')}
             placeholder={t('step5.input1.placeholder')}
             {...stepForms.form.step5.getInputProps('input1')}
@@ -1553,7 +1580,7 @@ export default function Form() {
             mb={theme.spacing?.sm}
           />
           <TextInput
-            w={isSmallScreen ? "50%" : "100%"}
+            w={isSmallScreen ? '50%' : '100%'}
             label={t('step5.input2.label')}
             placeholder={t('step5.input2.placeholder')}
             {...stepForms.form.step5.getInputProps('input2')}
@@ -1561,7 +1588,7 @@ export default function Form() {
             mb={theme.spacing?.sm}
           />
           <TextInput
-            w={isSmallScreen ? "50%" : "100%"}
+            w={isSmallScreen ? '50%' : '100%'}
             label={t('step5.input3.label')}
             placeholder={t('step5.input3.placeholder')}
             {...stepForms.form.step5.getInputProps('input3')}
@@ -1569,7 +1596,7 @@ export default function Form() {
             mb={theme.spacing?.sm}
           />
           <TextInput
-            w={isSmallScreen ? "50%" : "100%"}
+            w={isSmallScreen ? '50%' : '100%'}
             label={t('step5.input4.label')}
             placeholder={t('step5.input4.placeholder')}
             {...stepForms.form.step5.getInputProps('input4')}
@@ -1577,7 +1604,7 @@ export default function Form() {
             mb={theme.spacing?.sm}
           />
           <TextInput
-            w={isSmallScreen ? "50%" : "100%"}
+            w={isSmallScreen ? '50%' : '100%'}
             label={t('step5.input5.label')}
             placeholder={t('step5.input5.placeholder')}
             {...stepForms.form.step5.getInputProps('input5')}
@@ -1585,7 +1612,7 @@ export default function Form() {
             mb={theme.spacing?.sm}
           />
           <TextInput
-            w={isSmallScreen ? "50%" : "100%"}
+            w={isSmallScreen ? '50%' : '100%'}
             label={t('step5.input6.label')}
             placeholder={t('step5.input6.placeholder')}
             {...stepForms.form.step5.getInputProps('input6')}
@@ -1604,11 +1631,41 @@ export default function Form() {
             withAsterisk
             mb={theme.spacing?.sm}
           >
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Très bas" label={t('step5.radio1.option1')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Bas" label={t('step5.radio1.option2')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Abordable" label={t('step5.radio1.option3')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Chère" label={t('step5.radio1.option4')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Très chère" label={t('step5.radio1.option5')} />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Très bas"
+              label={t('step5.radio1.option1')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Bas"
+              label={t('step5.radio1.option2')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Abordable"
+              label={t('step5.radio1.option3')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Chère"
+              label={t('step5.radio1.option4')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Très chère"
+              label={t('step5.radio1.option5')}
+            />
           </RadioGroup>
 
           <RadioGroup
@@ -1617,11 +1674,41 @@ export default function Form() {
             withAsterisk
             mb={theme.spacing?.sm}
           >
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Très mauvais" label={t('step5.radio2.option1')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Mauvais" label={t('step5.radio2.option2')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Bon" label={t('step5.radio2.option3')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Très bien" label={t('step5.radio2.option4')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Excellent" label={t('step5.radio2.option5')} />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Très mauvais"
+              label={t('step5.radio2.option1')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Mauvais"
+              label={t('step5.radio2.option2')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Bon"
+              label={t('step5.radio2.option3')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Très bien"
+              label={t('step5.radio2.option4')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Excellent"
+              label={t('step5.radio2.option5')}
+            />
           </RadioGroup>
 
           <RadioGroup
@@ -1630,15 +1717,37 @@ export default function Form() {
             withAsterisk
             mb={theme.spacing?.sm}
           >
-            <Radio color={theme.colors?.red?.[0]} variant='outline'
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
               mb={theme.spacing?.sm}
               value="Très insatisfait"
               label={t('step5.radio3.option1')}
             />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Pas satisfait" label={t('step5.radio3.option2')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Moyen" label={t('step5.radio3.option3')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Satisfait" label={t('step5.radio3.option4')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline'
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Pas satisfait"
+              label={t('step5.radio3.option2')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Moyen"
+              label={t('step5.radio3.option3')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Satisfait"
+              label={t('step5.radio3.option4')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
               mb={theme.spacing?.sm}
               value="Très satisfait"
               label={t('step5.radio3.option5')}
@@ -1651,15 +1760,37 @@ export default function Form() {
             withAsterisk
             mb={theme.spacing?.sm}
           >
-            <Radio color={theme.colors?.red?.[0]} variant='outline'
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
               mb={theme.spacing?.sm}
               value="Très mauvais choix"
               label={t('step5.radio4.option1')}
             />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Mauvais choix" label={t('step5.radio4.option2')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Neutre" label={t('step5.radio4.option3')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Bon choix" label={t('step5.radio4.option4')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline'
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Mauvais choix"
+              label={t('step5.radio4.option2')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Neutre"
+              label={t('step5.radio4.option3')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Bon choix"
+              label={t('step5.radio4.option4')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
               mb={theme.spacing?.sm}
               value="Très bon choix"
               label={t('step5.radio4.option5')}
@@ -1672,11 +1803,41 @@ export default function Form() {
             withAsterisk
             mb={theme.spacing?.sm}
           >
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Très mauvais" label={t('step5.radio5.option1')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Mauvais" label={t('step5.radio5.option2')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Moyen" label={t('step5.radio5.option3')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Bon" label={t('step5.radio5.option4')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Très bon" label={t('step5.radio5.option5')} />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Très mauvais"
+              label={t('step5.radio5.option1')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Mauvais"
+              label={t('step5.radio5.option2')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Moyen"
+              label={t('step5.radio5.option3')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Bon"
+              label={t('step5.radio5.option4')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Très bon"
+              label={t('step5.radio5.option5')}
+            />
           </RadioGroup>
 
           <RadioGroup
@@ -1685,15 +1846,41 @@ export default function Form() {
             withAsterisk
             mb={theme.spacing?.sm}
           >
-            <Radio color={theme.colors?.red?.[0]} variant='outline'
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
               mb={theme.spacing?.sm}
               value="Très difficile"
               label={t('step5.radio6.option1')}
             />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Difficile" label={t('step5.radio6.option2')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Moyen" label={t('step5.radio6.option3')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Facile" label={t('step5.radio6.option4')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Très facile" label={t('step5.radio6.option5')} />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Difficile"
+              label={t('step5.radio6.option2')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Moyen"
+              label={t('step5.radio6.option3')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Facile"
+              label={t('step5.radio6.option4')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Très facile"
+              label={t('step5.radio6.option5')}
+            />
           </RadioGroup>
 
           <RadioGroup
@@ -1702,11 +1889,41 @@ export default function Form() {
             withAsterisk
             mb={theme.spacing?.sm}
           >
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Très mauvaise" label={t('step5.radio7.option1')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Mauvaise" label={t('step5.radio7.option2')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Moyenne" label={t('step5.radio7.option3')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Bonne" label={t('step5.radio7.option4')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Très bonne" label={t('step5.radio7.option5')} />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Très mauvaise"
+              label={t('step5.radio7.option1')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Mauvaise"
+              label={t('step5.radio7.option2')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Moyenne"
+              label={t('step5.radio7.option3')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Bonne"
+              label={t('step5.radio7.option4')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Très bonne"
+              label={t('step5.radio7.option5')}
+            />
           </RadioGroup>
 
           <RadioGroup
@@ -1715,15 +1932,37 @@ export default function Form() {
             withAsterisk
             mb={theme.spacing?.sm}
           >
-            <Radio color={theme.colors?.red?.[0]} variant='outline'
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
               mb={theme.spacing?.sm}
               value="Très difficilement"
               label={t('step5.radio8.option1')}
             />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Difficilement" label={t('step5.radio8.option2')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Moyennement" label={t('step5.radio8.option3')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Facilement" label={t('step5.radio8.option4')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline'
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Difficilement"
+              label={t('step5.radio8.option2')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Moyennement"
+              label={t('step5.radio8.option3')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Facilement"
+              label={t('step5.radio8.option4')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
               mb={theme.spacing?.sm}
               value="Très facilement"
               label={t('step5.radio8.option5')}
@@ -1736,19 +1975,37 @@ export default function Form() {
             withAsterisk
             mb={theme.spacing?.sm}
           >
-            <Radio color={theme.colors?.red?.[0]} variant='outline'
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
               mb={theme.spacing?.sm}
               value="Pas necessaire"
               label={t('step5.radio9.option1')}
             />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Peut-être" label={t('step5.radio9.option2')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Important" label={t('step5.radio9.option3')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline'
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Peut-être"
+              label={t('step5.radio9.option2')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Important"
+              label={t('step5.radio9.option3')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
               mb={theme.spacing?.sm}
               value="Très Important"
               label={t('step5.radio9.option4')}
             />
-            <Radio color={theme.colors?.red?.[0]} variant='outline'
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
               mb={theme.spacing?.sm}
               value="Incontournable"
               label={t('step5.radio9.option5')}
@@ -1761,15 +2018,41 @@ export default function Form() {
             withAsterisk
             mb={theme.spacing?.sm}
           >
-            <Radio color={theme.colors?.red?.[0]} variant='outline'
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
               mb={theme.spacing?.sm}
               value="Très quelconque"
               label={t('step5.radio10.option1')}
             />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Quelconque" label={t('step5.radio10.option2')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Commun" label={t('step5.radio10.option3')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Unique" label={t('step5.radio10.option4')} />
-            <Radio color={theme.colors?.red?.[0]} variant='outline' mb={theme.spacing?.sm} value="Très Unique" label={t('step5.radio10.option5')} />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Quelconque"
+              label={t('step5.radio10.option2')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Commun"
+              label={t('step5.radio10.option3')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Unique"
+              label={t('step5.radio10.option4')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              variant="outline"
+              mb={theme.spacing?.sm}
+              value="Très Unique"
+              label={t('step5.radio10.option5')}
+            />
           </RadioGroup>
         </form>
       </Box>
@@ -1783,7 +2066,7 @@ export default function Form() {
         </Text>
         <form>
           <TextInput
-            w={isSmallScreen ? "50%" : "100%"}
+            w={isSmallScreen ? '50%' : '100%'}
             label={t('step6.input1.label')}
             placeholder={t('step6.input1.placeholder')}
             {...stepForms.form.step6.getInputProps('input1')}
@@ -1791,24 +2074,48 @@ export default function Form() {
             mb={theme.spacing?.sm}
           />
           <TextInput
-            w={isSmallScreen ? "50%" : "100%"}
+            w={isSmallScreen ? '50%' : '100%'}
             label={t('step6.input2.label')}
             placeholder={t('step6.input2.placeholder')}
             {...stepForms.form.step6.getInputProps('input2')}
             withAsterisk
             mb={theme.spacing?.sm}
           />
-           {/* Educational Background */}
+          {/* Educational Background */}
           <RadioGroup
             label={t('step6.radio1.label')}
             {...stepForms.form.step6.getInputProps('radio1')}
             withAsterisk
             mb={theme.spacing?.sm}
           >
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="Management and Administration" label={t('step6.radio1.option1')} />
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="Engineer" label={t('step6.radio1.option2')} />
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="Self-taught" label={t('step6.radio1.option3')} />
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="Other" label={t('step6.radio1.option4')} />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="Management and Administration"
+              label={t('step6.radio1.option1')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="Engineer"
+              label={t('step6.radio1.option2')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="Self-taught"
+              label={t('step6.radio1.option3')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="Other"
+              label={t('step6.radio1.option4')}
+            />
           </RadioGroup>
 
           {/* Years of Experience */}
@@ -1818,16 +2125,40 @@ export default function Form() {
             withAsterisk
             mb={theme.spacing?.sm}
           >
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="0-3 years" label={t('step6.radio2.option1')} />
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="4-10 years" label={t('step6.radio2.option2')} />
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="More than 10 years" label={t('step6.radio2.option3')} />
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="Other" label={t('step6.radio2.option4')} />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="0-3 years"
+              label={t('step6.radio2.option1')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="4-10 years"
+              label={t('step6.radio2.option2')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="More than 10 years"
+              label={t('step6.radio2.option3')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="Other"
+              label={t('step6.radio2.option4')}
+            />
           </RadioGroup>
           <Text fz={theme.fontSizes?.md} ta="center" fw={900} c={theme.colors?.red?.[0]}>
             {t('step6.subtitle5')}
           </Text>
           <TextInput
-            w={isSmallScreen ? "50%" : "100%"}
+            w={isSmallScreen ? '50%' : '100%'}
             label={t('step6.input3.label')}
             placeholder={t('step6.input3.placeholder')}
             {...stepForms.form.step6.getInputProps('input3')}
@@ -1840,9 +2171,27 @@ export default function Form() {
             withAsterisk
             mb={theme.spacing?.sm}
           >
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="Less than 3 years" label={t('step6.radio3.option1')} />
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="3-5 years" label={t('step6.radio3.option2')} />
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="More than 5 years" label={t('step6.radio3.option3')} />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="Less than 3 years"
+              label={t('step6.radio3.option1')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="3-5 years"
+              label={t('step6.radio3.option2')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="More than 5 years"
+              label={t('step6.radio3.option3')}
+            />
           </RadioGroup>
 
           {/* Number of Employees */}
@@ -1852,9 +2201,27 @@ export default function Form() {
             withAsterisk
             mb={theme.spacing?.sm}
           >
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="1-3 employees" label={t('step6.radio4.option1')} />
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="4-10 employees" label={t('step6.radio4.option2')} />
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="More than 10 employees" label={t('step6.radio4.option3')} />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="1-3 employees"
+              label={t('step6.radio4.option1')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="4-10 employees"
+              label={t('step6.radio4.option2')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="More than 10 employees"
+              label={t('step6.radio4.option3')}
+            />
           </RadioGroup>
 
           {/* Industry Sector */}
@@ -1864,14 +2231,32 @@ export default function Form() {
             withAsterisk
             mb={theme.spacing?.sm}
           >
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="1-3 employees" label={t('step6.radio5.option1')} />
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="4-10 employees" label={t('step6.radio5.option2')} />
-            <Radio color={theme.colors?.red?.[0]} mb={theme.spacing?.sm} variant='outline' value="More than 10 employees" label={t('step6.radio5.option3')} />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="1-3 employees"
+              label={t('step6.radio5.option1')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="4-10 employees"
+              label={t('step6.radio5.option2')}
+            />
+            <Radio
+              color={theme.colors?.red?.[0]}
+              mb={theme.spacing?.sm}
+              variant="outline"
+              value="More than 10 employees"
+              label={t('step6.radio5.option3')}
+            />
           </RadioGroup>
-                {/* Location */}
+          {/* Location */}
           <TextInput
             label={t('step6.input4.label')}
-            w={isSmallScreen ? "50%" : "100%"}
+            w={isSmallScreen ? '50%' : '100%'}
             placeholder={t('step6.input4.placeholder')}
             {...stepForms.form.step6.getInputProps('input4')}
             withAsterisk
@@ -1881,7 +2266,7 @@ export default function Form() {
           {/* Product/Service Image */}
           <FileInput
             leftSection={icon}
-            w={isSmallScreen ? "50%" : "100%"}
+            w={isSmallScreen ? '50%' : '100%'}
             label={t('step6.input5.label')}
             placeholder={t('step6.input5.placeholder')}
             {...stepForms.form.step6.getInputProps('input5')}
@@ -1890,14 +2275,14 @@ export default function Form() {
           />
         </form>
       </Box>
-    )
-  }
+    );
+  };
   return (
-    <Container pt={theme.spacing?.lg} size={isSmallScreen ? "60%" : "90%"}>
+    <Container pt={theme.spacing?.lg} size={isSmallScreen ? '60%' : '90%'}>
       {currentStep === 'step2' && (
         <Box style={{ borderWidth: 1, borderColor: '#EF1D1E', borderStyle: 'solid' }}>
           <Text
-            fz={isSmallScreen ?theme.fontSizes?.lg : theme.fontSizes?.md}
+            fz={isSmallScreen ? theme.fontSizes?.lg : theme.fontSizes?.md}
             ta="center"
             c={theme.colors?.red?.[0]}
             fw={900}
@@ -1905,7 +2290,7 @@ export default function Form() {
             Market Scorecard
           </Text>
           <Text
-            fz={isSmallScreen ? theme.fontSizes?.md : theme.fontSizes?.sm }
+            fz={isSmallScreen ? theme.fontSizes?.md : theme.fontSizes?.sm}
             ta="center"
             c={theme.colors?.red?.[0]}
             fw={900}
@@ -1914,7 +2299,14 @@ export default function Form() {
           </Text>
         </Box>
       )}
-      <Box bg={theme.colors?.white?.[7]} mt={theme.spacing?.md} px={theme.spacing?.md} mih={isSmallScreen ? currentStep === 'step2' ? 380 : 480 : "65vh" } mah={isSmallScreen ? 480 : "100%"} style={{ overflow: 'scroll', justifyContent: "center", alignContent: "center" }}>
+      <Box
+        bg={theme.colors?.white?.[7]}
+        mt={theme.spacing?.md}
+        px={theme.spacing?.md}
+        mih={isSmallScreen ? (currentStep === 'step2' ? 380 : 480) : '65vh'}
+        mah={isSmallScreen ? 480 : '100%'}
+        style={{ overflow: 'scroll', justifyContent: 'center', alignContent: 'center' }}
+      >
         <Center>
           {currentStep === 'step1' && step1()}
           {currentStep === 'confirmationStep' && confirmationStep()}
@@ -1925,8 +2317,12 @@ export default function Form() {
           {currentStep === 'step6' && step6()}
         </Center>
       </Box>
-      <Group pos="relative" py={theme.spacing?.md} justify={currentStep !== "step1" && currentStep !== "step2" ? "space-between" : "center"}>
-        {currentStep !== "step1" && currentStep !== "step2" && (
+      <Group
+        pos="relative"
+        py={theme.spacing?.md}
+        justify={currentStep !== 'step1' && currentStep !== 'step2' ? 'space-between' : 'center'}
+      >
+        {currentStep !== 'step1' && currentStep !== 'step2' && (
           <Button
             h={50}
             w={isSmallScreen ? 250 : 100}
@@ -1934,21 +2330,29 @@ export default function Form() {
             disabled={currentStep === 'step1' || currentStep === 'step2'}
             onClick={() => previousButton()}
           >
-            <Text fz={isSmallScreen ? theme.fontSizes?.md : theme.fontSizes?.sm } fw={400} ta="center">
+            <Text
+              fz={isSmallScreen ? theme.fontSizes?.md : theme.fontSizes?.sm}
+              fw={400}
+              ta="center"
+            >
               {t('button.previous')}
             </Text>
           </Button>
         )}
         <Button
-          loading={currentStep === "step1" ? isLoading : false}
+          loading={currentStep === 'step1' ? isLoading : false}
           type="submit"
           onClick={nextButton}
           h={50}
           w={isSmallScreen ? 250 : 100}
           color={theme.colors?.red?.[0]}
         >
-          <Text fz={isSmallScreen ? theme.fontSizes?.md : theme.fontSizes?.sm } fw={400} ta="center">
-            { isLoading && currentStep === "step1" ? <Loader size={30} c={theme.colors?.white?.[0]}/> : t('button.next')}
+          <Text fz={isSmallScreen ? theme.fontSizes?.md : theme.fontSizes?.sm} fw={400} ta="center">
+            {isLoading && currentStep === 'step1' ? (
+              <Loader size={30} c={theme.colors?.white?.[0]} />
+            ) : (
+              t('button.next')
+            )}
           </Text>
         </Button>
       </Group>

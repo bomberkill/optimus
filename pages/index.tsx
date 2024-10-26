@@ -6,36 +6,18 @@ import {
   AspectRatio,
   Box,
   Button,
-  Card,
+  // Card,
   Center,
   Container,
-  Grid,
-  GridCol,
+  // Grid,
+  // GridCol,
   Group,
   Paper,
   Stack,
   Text,
-  Title,
+  // Title,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { theme } from '@/theme';
-import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
-import { Welcome } from '../components/Welcome/Welcome';
-import analyse from '../public/analyse.gif';
-import animation from '../public/animation1.gif';
-import logo from '../public/images/logo2.png';
-import partner2 from '../public/images/partner2.png';
-import partner1 from '../public/images/patner1.png';
-import whatsapp from '../public/images/whatsapp.png';
-import solution from '../public/solution.gif';
-import suivi from '../public/suivi.gif';
-// import image1 from '../public/images/image2.png';
-// import image2 from '../public/images/image1.png';
-// import image3 from '../public/images/image3.png';
-import  business from '../public/images/business.png';
-import  business2 from '../public/images/business2.png';
-import  business3 from '../public/images/business3.png';
-import user from '../public/images/man.png';
 
 import '@mantine/carousel/styles.css';
 
@@ -44,6 +26,25 @@ import Link from 'next/link';
 import Autoplay from 'embla-carousel-autoplay';
 import { Carousel, CarouselSlide } from '@mantine/carousel';
 import Footer from '@/components/Footer/Footer';
+import { theme } from '@/theme';
+// import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
+// import { Welcome } from '../components/Welcome/Welcome';
+// import analyse from '../public/analyse.gif';
+// import animation from '../public/animation1.gif';
+// import image1 from '../public/images/image2.png';
+// import image2 from '../public/images/image1.png';
+// import image3 from '../public/images/image3.png';
+import business from '../public/images/business.png';
+import business2 from '../public/images/business2.png';
+import business3 from '../public/images/business3.png';
+import logo from '../public/images/logo2.png';
+import user from '../public/images/man.png';
+// import partner2 from '../public/images/partner2.png';
+// import partner1 from '../public/images/patner1.png';
+import whatsapp from '../public/images/whatsapp.png';
+
+// import solution from '../public/solution.gif';
+// import suivi from '../public/suivi.gif';
 
 export default function HomePage() {
   const isSmallScreen = useMediaQuery('(min-width: 576px)');
@@ -108,9 +109,9 @@ export default function HomePage() {
       owner: t('testimonials.testimonial3.owner'),
       job: t('testimonials.testimonial3.job'),
       image: user,
-    }
+    },
   ];
-  const partners = [partner1, partner2, partner1, partner2, partner1, partner2];
+  // const partners = [partner1, partner2, partner1, partner2, partner1, partner2];
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -132,9 +133,9 @@ export default function HomePage() {
     };
   }, []);
   return (
-    <Box pb={theme.spacing?.xl} >
+    <Box pb={theme.spacing?.xl}>
       <Box>
-        <Container size={isSmallScreen ? "80%" : "90%"}>
+        <Container size={isSmallScreen ? '80%' : '90%'}>
           <Center>
             <Box w="100%">
               <Box>
@@ -147,21 +148,14 @@ export default function HomePage() {
                     />
                   </AspectRatio>
                 </Center>
-                <Text
-                  fz={theme.fontSizes?.xs}
-                  ta="center"
-                  my={theme.spacing?.sm}
-                >
+                <Text fz={theme.fontSizes?.xs} ta="center" my={theme.spacing?.sm}>
                   {t('title')}
                 </Text>
                 <Text fz={theme.fontSizes?.md} fw={600} ta="center" c={theme.colors?.white?.[9]}>
                   {t('subtitle')}
                 </Text>
                 <Link href="why-evaluate">
-                  <Text
-                    fz={theme.fontSizes?.sm}
-                    ta="center"
-                  >
+                  <Text fz={theme.fontSizes?.sm} ta="center">
                     {t('more')}
                   </Text>
                 </Link>
@@ -174,7 +168,11 @@ export default function HomePage() {
                       w={isSmallScreen ? 250 : 150}
                       color={theme.colors?.red?.[0]}
                     >
-                      <Text fz={isSmallScreen ? theme.fontSizes?.md : theme.fontSizes?.md } fw={600} ta="center">
+                      <Text
+                        fz={isSmallScreen ? theme.fontSizes?.md : theme.fontSizes?.md}
+                        fw={600}
+                        ta="center"
+                      >
                         {t('button')}
                       </Text>
                     </Button>
@@ -196,7 +194,7 @@ export default function HomePage() {
                     my={theme.spacing?.sm}
                     withControls={false}
                     height={200}
-                    w={isSmallScreen ? "70%" : "80%"}
+                    w={isSmallScreen ? '70%' : '80%'}
                     slideSize="33%"
                     slideGap="lg"
                     loop
@@ -212,7 +210,7 @@ export default function HomePage() {
                           <AspectRatio w={200} h={200}>
                             <NextImage
                               src={item.image}
-                              style={{ width: "100%", height: "100%", objectFit: 'contain' }}
+                              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                             />
                           </AspectRatio>
                         </Center>
@@ -235,8 +233,8 @@ export default function HomePage() {
                   <Carousel
                     my={theme.spacing?.md}
                     withControls={false}
-                    w={isSmallScreen ? "80%" : "80%"}
-                    slideSize={isSmallScreen ? "33%" : "100%"}
+                    w={isSmallScreen ? '80%' : '80%'}
+                    slideSize={isSmallScreen ? '33%' : '100%'}
                     slideGap="md"
                     loop
                     align="start"
@@ -248,16 +246,40 @@ export default function HomePage() {
                     {testimony.map((item, index) => (
                       <CarouselSlide key={index}>
                         <Box h="100%">
-                          <Paper style={{display: 'flex', justifyContent:'center', alignItems: 'center'}} mih={200} radius={5} bg="#FFB8B8" key={index} p={theme.spacing?.sm}>
+                          <Paper
+                            style={{
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                            }}
+                            mih={200}
+                            radius={5}
+                            bg="#FFB8B8"
+                            key={index}
+                            p={theme.spacing?.sm}
+                          >
                             <Stack>
-                              <Text fz={theme.fontSizes?.sm} ta="center"> {item.text} </Text>
-                              <Group pt={theme.spacing?.md}  gap={10} align='center' justify='start'>
+                              <Text fz={theme.fontSizes?.sm} ta="center">
+                                {' '}
+                                {item.text}{' '}
+                              </Text>
+                              <Group pt={theme.spacing?.md} gap={10} align="center" justify="start">
                                 <AspectRatio w={40} h={40}>
-                                  <NextImage src={item.image} alt='' style={{width: "100%", height: "100%", objectFit: 'contain'}}/>
+                                  <NextImage
+                                    src={item.image}
+                                    alt=""
+                                    style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                                  />
                                 </AspectRatio>
-                                <Stack gap={1} align='flex-start' justify='center'>
-                                  <Text  fz={theme.fontSizes?.sm} ta="center"> {item.owner} </Text>
-                                  <Text  fz={theme.fontSizes?.xs} c="gray" ta="center"> {item.job} </Text>
+                                <Stack gap={1} align="flex-start" justify="center">
+                                  <Text fz={theme.fontSizes?.sm} ta="center">
+                                    {' '}
+                                    {item.owner}{' '}
+                                  </Text>
+                                  <Text fz={theme.fontSizes?.xs} c="gray" ta="center">
+                                    {' '}
+                                    {item.job}{' '}
+                                  </Text>
                                 </Stack>
                               </Group>
                             </Stack>
@@ -284,8 +306,18 @@ export default function HomePage() {
         </Box>
       </Box>
       <Link href="https://wa.me/+237690655845" target="_blank" rel="noopener noreferrer">
-        <AspectRatio h="auto" w="auto" right={isSmallScreen ? 50 : 30} bottom={footerIsVisible ? 170 : 50} pos="fixed">
-          <NextImage src={whatsapp} width={isSmallScreen ? 40 : 40} height={isSmallScreen ? 40 : 40} />
+        <AspectRatio
+          h="auto"
+          w="auto"
+          right={isSmallScreen ? 50 : 30}
+          bottom={footerIsVisible ? 170 : 50}
+          pos="fixed"
+        >
+          <NextImage
+            src={whatsapp}
+            width={isSmallScreen ? 40 : 40}
+            height={isSmallScreen ? 40 : 40}
+          />
         </AspectRatio>
       </Link>
     </Box>

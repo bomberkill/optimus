@@ -9,10 +9,11 @@ import { theme } from '@/theme';
 import fr from '../../public/images/france.png';
 import logo from '../../public/images/Group 4.png';
 import en from '../../public/images/united-kingdom.png';
-import classes from './header.module.css';
+
+// import classes from './header.module.css';
 
 export default function Header() {
-  const [opened, {close, toggle }] = useDisclosure(false);
+  const [opened, { close, toggle }] = useDisclosure(false);
   const { t, i18n } = useTranslation('common');
   const isSmallScreen = useMediaQuery('(min-width: 576px)');
   const router = useRouter();
@@ -59,96 +60,111 @@ export default function Header() {
             {/* <Group justify="flex-end">
               <NextImage src={logo} alt="" />
             </Group> */}
-              {isSmallScreen ? (
-                <Group h="100%" align="center" justify="space-between">
-                  <Group justify="start">
-                    <Link style={{ textDecoration: 'none' }} href="/">
-                      <Text style={{ cursor: 'pointer' }} c={theme.colors?.white?.[0]}>
-                        {t('home')}
+            {isSmallScreen ? (
+              <Group h="100%" align="center" justify="space-between">
+                <Group justify="start">
+                  <Link style={{ textDecoration: 'none' }} href="/">
+                    <Text style={{ cursor: 'pointer' }} c={theme.colors?.white?.[0]}>
+                      {t('home')}
+                    </Text>
+                  </Link>
+                  <Link style={{ textDecoration: 'none' }} href="about-us">
+                    <Text style={{ cursor: 'pointer' }} c={theme.colors?.white?.[0]}>
+                      {t('about-us')}
+                    </Text>
+                  </Link>
+                </Group>
+                <Box style={{ backgroundColor: 'white', borderRadius: 5 }} p={theme.spacing?.xs}>
+                  <Group align="center" justify="space-between">
+                    <Group onClick={() => changLang('fr')} style={{ cursor: 'pointer' }} gap={5}>
+                      <Text
+                        fz={theme.fontSizes?.sm}
+                        c={isFrench ? theme.colors?.red?.[0] : theme.colors?.white?.[9]}
+                        fw={400}
+                      >
+                        FR
                       </Text>
-                    </Link>
-                    <Link style={{ textDecoration: 'none' }} href="about-us">
-                      <Text style={{ cursor: 'pointer' }} c={theme.colors?.white?.[0]}>
-                        {t('about-us')}
-                      </Text>
-                    </Link>
+                      <NextImage style={{ height: 20, width: 20 }} src={fr} alt="" />
                     </Group>
+                    <Text fz="sm" c={theme.colors?.white?.[9]} fw={600}>
+                      |
+                    </Text>
+                    <Group onClick={() => changLang('en')} style={{ cursor: 'pointer' }} gap={5}>
+                      <Text
+                        fz={theme.fontSizes?.sm}
+                        c={isFrench ? theme.colors?.white?.[9] : theme.colors?.red?.[0]}
+                        fw={400}
+                      >
+                        EN
+                      </Text>
+                      <NextImage style={{ height: 20, width: 20 }} src={en} alt="" />
+                    </Group>
+                  </Group>
+                </Box>
+              </Group>
+            ) : (
+              <Group
+                h="100%"
+                align="center"
+                justify={router.pathname !== '/' ? 'space-between' : 'flex-end'}
+              >
+                {router.pathname !== '/' && (
+                  <NextImage
+                    style={{ width: 150, height: '100%', objectFit: 'contain' }}
+                    src={logo}
+                    alt=""
+                  />
+                )}
+                <Group justify="space-between">
                   <Box
                     style={{ backgroundColor: 'white', borderRadius: 5 }}
-                    p={theme.spacing?.xs}
+                    px={theme.spacing?.sm}
+                    py={theme.spacing?.xs}
                   >
                     <Group align="center" justify="space-between">
-                      <Group onClick={() => changLang('fr')} style={{ cursor: 'pointer' }} gap={5}>
-                        <Text
-                          fz={theme.fontSizes?.sm}
-                          c={isFrench ? theme.colors?.red?.[0] : theme.colors?.white?.[9]} 
-                          fw={400} 
-                        >
-                          FR
+                      <Group
+                        onClick={() => {
+                          i18n.language === 'en' ? changLang('fr') : changLang('en');
+                        }}
+                        style={{ cursor: 'pointer' }}
+                        gap={2}
+                      >
+                        <Text fz={theme.fontSizes?.sm} c={theme.colors?.white?.[9]} fw={400}>
+                          {i18n.language === 'en' ? 'FR' : 'EN'}
                         </Text>
-                        <NextImage style={{ height: 20, width: 20 }} src={fr} alt="" />
-                      </Group>
-                      <Text fz="sm" c={theme.colors?.white?.[9]} fw={600}>
-                        |
-                      </Text>
-                      <Group onClick={() => changLang('en')} style={{ cursor: 'pointer' }} gap={5}>
-                        <Text
-                          fz={theme.fontSizes?.sm}
-                          c={isFrench ? theme.colors?.white?.[9] : theme.colors?.red?.[0]}
-                          fw={400}
-                          
-                        >
-                          EN
-                        </Text>
-                        <NextImage style={{ height: 20, width: 20 }} src={en} alt="" />
+                        <NextImage
+                          style={{ height: 20, width: 20 }}
+                          src={i18n.language === 'en' ? fr : en}
+                          alt=""
+                        />
                       </Group>
                     </Group>
                   </Box>
+                  <Burger
+                    color={theme.colors?.white?.[0]}
+                    size="sm"
+                    opened={opened}
+                    onClick={toggle}
+                    aria-label="Toggle navigation"
+                  />
+                  <Drawer closeOnClickOutside size={200} opened={opened} onClose={close}>
+                    <Stack px={20} gap={15}>
+                      <Link style={{ textDecoration: 'none' }} href="/">
+                        <Text style={{ cursor: 'pointer' }} c={theme.colors?.white?.[9]} fw="bold">
+                          {t('home')}
+                        </Text>
+                      </Link>
+                      <Link style={{ textDecoration: 'none' }} href="about-us">
+                        <Text style={{ cursor: 'pointer' }} c={theme.colors?.white?.[9]} fw="bold">
+                          {t('about-us')}
+                        </Text>
+                      </Link>
+                    </Stack>
+                  </Drawer>
                 </Group>
-              ) : (
-                <Group h="100%" align="center" justify={router.pathname !== "/" ?"space-between" : "flex-end"}>
-                  {router.pathname !== "/" && (
-                    <NextImage style={{width: 150, height: "100%", objectFit: 'contain'}}  src={logo} alt="" />
-                  )}
-                  <Group justify="space-between">
-                    <Box
-                      style={{ backgroundColor: 'white', borderRadius: 5 }}
-                      px={theme.spacing?.sm}
-                      py={theme.spacing?.xs}
-                    >
-                      <Group align="center" justify="space-between">
-                        <Group onClick={() => {i18n.language === "en" ? changLang('fr'): changLang('en') }} style={{ cursor: 'pointer' }} gap={2}>
-                          <Text
-                            fz={theme.fontSizes?.sm}
-                            c={theme.colors?.white?.[9]}
-                            fw={400}
-                          >
-                            {i18n.language === "en" ? 'FR' : 'EN'}
-                          </Text>
-                          <NextImage style={{ height: 20, width: 20 }} src={i18n.language === "en" ? fr : en} alt="" />
-                        </Group>
-                      </Group>
-                    </Box>
-                    <Burger  color={theme.colors?.white?.[0]} size="sm" opened={opened} onClick={toggle} aria-label="Toggle navigation" />
-                    <Drawer closeOnClickOutside size={200} opened={opened} onClose={close}>
-                      <Stack px={20} gap={15}>
-                        <Link style={{ textDecoration: 'none' }} href="/">
-                          <Text style={{ cursor: 'pointer' }} c={theme.colors?.white?.[9]} fw="bold">
-                            {t('home')}
-                          </Text>
-                        </Link>
-                        <Link style={{ textDecoration: 'none' }} href="about-us">
-                          <Text style={{ cursor: 'pointer' }} c={theme.colors?.white?.[9]} fw="bold">
-                            {t('about-us')}
-                          </Text>
-                        </Link>
-                      </Stack>
-                    </Drawer>
-                  </Group>
-                </Group>
-              )}
-            <Center>
-            </Center>
+              </Group>
+            )}
+            <Center></Center>
           </Container>
         </header>
       </Box>
