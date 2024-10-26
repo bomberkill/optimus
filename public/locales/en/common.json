@@ -2,5 +2,7 @@
     "welcome": "welcome to ",
     "text": "This starter Next.js project includes a minimal setup for server side rendering, if you want to learn more on Mantine + Next.js integration follow ",
     "guide": "this guide",
-    "end":". To get started edit index.tsx file."
+    "end":". To get started edit index.tsx file.",
+    "home": "Home",
+    "about-us": "About Us"
 }

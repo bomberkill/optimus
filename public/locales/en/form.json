@@ -1,0 +1,387 @@
+{
+  "validationSchemas": {
+      "step1": {
+          "email": "Email is required",
+          "invalid-email": "Invalid email"
+      },
+      "confirmation-step": {
+          "code": "Verification code is required",
+          "invalid-code": "Invalid code"
+      },
+      "step2": {
+          "desc": "Field required",
+          "radio": "Field required"
+      },
+      "step5": "Please enter a number"
+  },
+  "email": {
+      "label": "Enter your email address",
+      "text": "You will receive a confirmation message at this address"
+  },
+  "code": {
+      "label": "Enter the verification code",
+      "text": "You didn't receive the code ?",
+      "resend": "Resend code",
+      "sent": "Code sent",
+      "not-sent": "Something went wrong"
+  },
+  "step2": {
+      "title": "Please respond to the survey",
+      "subtitle": "Your offer",
+      "input": {
+          "label": "Describe your service/product",
+          "placeholder": "Enter text"
+      },
+      "radio": {
+          "label": "What are you selling?",
+          "option1": "Service",
+          "option2": "Product"
+      }
+  },
+  "step3": {
+      "subtitle": "Your clients",
+      "radio": {
+      "label": "Who do you primarily sell to?",
+      "option1": "Business (B2B)",
+      "option2": "Individual (B2C)"
+      }
+  },
+  "step4": {
+      "entreprise": {
+
+          "subtitle": "B2B Client Profile",
+          "radio1": {
+              "label": "What is the size of the client company?",
+              "option1": "1-3",
+              "option2": "4-10",
+              "option3": "More than 10"
+          },
+          "radio2": {
+              "label": "How many years has your client existed?",
+              "option1": "0-3 years",
+              "option2": "4-10 years",
+              "option3": "More than 10 years"
+          },
+          "checkbox": {
+              "label": "Departments targeted by your products/services",
+              "note": "Tick all that apply.",
+              "option1": "Sales",
+              "option2": "Finance and Accounting",
+              "option3": "General Management",
+              "option4": "Human Resources",
+              "option5": "Production",
+              "option6": "Marketing"
+          },
+          "radio3": {
+              "label": "Location",
+              "option1": "Urban area",
+              "option2": "Rural area"
+          },
+          "radio4": {
+              "label": "Order frequency",
+              "option1": "Daily",
+              "option2": "Weekly",
+              "option3": "Bi-weekly",
+              "option4": "Monthly",
+              "option5": "Less frequently"
+          },
+          "radio5": {
+              "label": "Who makes the purchasing decision?",
+              "option1": "Director",
+              "option2": "Department Head",
+              "option3": "Manager",
+              "option4": "Intern",
+              "option5": "Others"
+          }
+      },
+      "customer": {
+          "subtitle": "Consumer Profile",
+          "checkbox1": {
+              "label": "Age",
+              "note": "Check all that apply.",
+              "option1": "Under 18",
+              "option2": "18-24",
+              "option3": "25-34",
+              "option4": "35-44",
+              "option5": "45-54",
+              "option6": "55-64",
+              "option7": "Over 65"
+          },
+          "radio1": {
+              "label": "Gender",
+              "man": "Men",
+              "women": "women"
+          },
+          "radio2": {
+              "label": "Place of residence",
+              "option1": "Urban area",
+              "option2": "Rural area"
+          },
+          "radio3": {
+              "label": "Level of education",
+              "option1": "Less than high school",
+              "option2": "High school diploma or equivalent",
+              "option3": "No diploma",
+              "option4": "Bachelor's degree",
+              "option5": "Master's degree",
+              "option6": "More than Master's degree",
+              "option7": "Not relevant"
+          },
+          "radio4": {
+              "label": "Marital status",
+              "option1": "Married",
+              "option2": "Divorced",
+              "option3": "Separated",
+              "option4": "Widowed",
+              "option5": "Not married",
+              "option6": "Not relevant"
+          },
+          "radio5": {
+              "label": "Employment status",
+              "option1": "Full-time employee",
+              "option2": "Part-time employee",
+              "option3": "Unemployed",
+              "option4": "Self-employed",
+              "option5": "Housewife",
+              "option6": "Student",
+              "option7": "Retired",
+              "option8": "Not relevant"
+          },
+          "radio6": {
+              "label": "Average income",
+              "option1": "Less than 100,000 XAF/month",
+              "option2": "101,000 – 300,000 XAF/month",
+              "option3": "301,000 - 500,000 XAF/month",
+              "option4": "More than 501,000 XAF/month",
+              "option5": "No monthly income",
+              "option6": "Not relevant"
+          },
+          "radio7": {
+              "label": "Household size",
+              "option1": "1 person",
+              "option2": "2-5 people",
+              "option3": "6-10 people",
+              "option4": "More than 10 people",
+              "option5": "Not relevant"
+          },
+          "radio8": {
+              "label": "Parental status",
+              "option1": "Parent",
+              "option2": "Expecting a child",
+              "option3": "Not a parent",
+              "option4": "Not relevant"
+          },
+          "radio9": {
+              "label": "Home ownership status",
+              "option1": "Homeowner",
+              "option2": "Renting",
+              "option3": "Co-renting",
+              "option4": "Living with family",
+              "option5": "Not relevant"
+          },
+          "subtitle2": "Purchase Behavior",
+          "radio10": {
+              "label": "Is there a difference between the buyer and the consumer for your product?",
+              "option1": "Yes",
+              "option2": "No"
+          },
+          "input": {
+              "label": "Describe who your buyer is",
+              "placeholder": "Enter text"
+          },
+          "radio11": {
+              "label": "Primary shopping locations",
+              "option1": "Supermarket/Convenience store",
+              "option2": "Neighborhood store",
+              "option3": "Traditional market",
+              "option4": "Street vendor",
+              "option5": "Online"
+          },
+          "radio12": {
+              "label": "Purchase frequency",
+              "option1": "Daily",
+              "option2": "Weekly",
+              "option3": "Bi-monthly",
+              "option4": "Monthly",
+              "option5": "Less frequently"
+          },
+          "radio13": {
+              "label": "Reason for purchase",
+              "option1": "Impulse (for urgent need)",
+              "option2": "Planned (set for specific periods)",
+              "option3": "Specific (infrequent, requires long consideration)",
+              "option4": "Unsolicited (meets an unexpressed need)"
+          }
+      }
+  },
+  "step5": {
+      "subtitle3": "Sales Funnel",
+      "input1": {
+        "label": "How many people/companies do you estimate to be your target population?",
+        "placeholder": "Enter the number"
+      },
+      "input2": {
+        "label": "Out of a target population of 100, how many know about your existence?",
+        "placeholder": "Enter the number"
+      },
+      "input3": {
+        "label": "Of the population that knows you, how many have been in contact with you (direct or indirect)?",
+        "placeholder": "Enter the number"
+      },
+      "input4": {
+        "label": "Of those who have been in contact with you, how many have tried/tested your products/services?",
+        "placeholder": "Enter the number"
+      },
+      "input5": {
+        "label": "Of those who have tried your products/services, how many have made a repeat purchase?",
+        "placeholder": "Enter the number"
+      },
+      "input6": {
+        "label": "Of your regular customers, how many are extremely loyal?",
+        "placeholder": "Enter the number"
+      },
+      "subtitle4": "Company Evaluation",
+      "radio1": {
+        "label": "How do you evaluate your prices compared to the market?",
+        "option1": "Very low",
+        "option2": "Low",
+        "option3": "Affordable",
+        "option4": "Expensive",
+        "option5": "Very expensive"
+      },
+      "radio2": {
+        "label": "In your opinion, what do your customers say about the quality of your products/services?",
+        "option1": "Very poor",
+        "option2": "Poor",
+        "option3": "Good",
+        "option4": "Very good",
+        "option5": "Excellent"
+      },
+      "radio3": {
+        "label": "Are you satisfied with the current promotion of your products/services?",
+        "option1": "Very dissatisfied",
+        "option2": "Not satisfied",
+        "option3": "Average",
+        "option4": "Satisfied",
+        "option5": "Very satisfied"
+      },
+      "radio4": {
+        "label": "Evaluate the relevance of your distribution channels",
+        "option1": "Very poor choice",
+        "option2": "Poor choice",
+        "option3": "Neutral",
+        "option4": "Good choice",
+        "option5": "Very good choice"
+      },
+      "radio5": {
+        "label": "Evaluate your current sales process",
+        "option1": "Very poor",
+        "option2": "Poor",
+        "option3": "Average",
+        "option4": "Good",
+        "option5": "Very good"
+      },
+      "radio6": {
+        "label": "Evaluate how easy it is for your customers to access you",
+        "option1": "Very difficult",
+        "option2": "Difficult",
+        "option3": "Average",
+        "option4": "Easy",
+        "option5": "Very easy"
+      },
+      "radio7": {
+        "label": "How do you evaluate your team?",
+        "option1": "Very poor",
+        "option2": "Poor",
+        "option3": "Average",
+        "option4": "Good",
+        "option5": "Very good"
+      },
+      "radio8": {
+        "label": "Are the proofs of the quality of your products/services convincing to your customers?",
+        "option1": "Very difficultly",
+        "option2": "Difficultly",
+        "option3": "Moderately",
+        "option4": "Easily",
+        "option5": "Very easily"
+      },
+      "radio9": {
+        "label": "Would it be important for you to have partnerships in your sales process?",
+        "option1": "Not necessary",
+        "option2": "Maybe",
+        "option3": "Important",
+        "option4": "Very Important",
+        "option5": "Essential"
+      },
+      "radio10": {
+        "label": "In your opinion, does your product/service have a strong differentiation value?",
+        "option1": "Very average",
+        "option2": "Average",
+        "option3": "Common",
+        "option4": "Unique",
+        "option5": "Very Unique"
+      }
+  },
+  "step6": {
+    "subtitle5": "Your Contact Information",
+    "description": "Enter your contact details to receive your Marketing Score within a minute.",
+    "input1": {
+      "label": "First and Last Name",
+      "placeholder": "Enter your first and last name"
+    },
+    "input2": {
+      "label": "Phone Number",
+      "placeholder": "Precede with your country code (e.g., +237650604020)"
+    },
+    "radio1": {
+      "label": "Your Educational Background",
+      "option1": "Management and Administration",
+      "option2": "Engineer",
+      "option3": "Self-taught",
+      "option4": "Other"
+    },
+    "radio2": {
+      "label": "Years of Experience in Your Field",
+      "option1": "0-3 years",
+      "option2": "4-10 years",
+      "option3": "More than 10 years",
+      "option4": "Other"
+    },
+    "subtitle6": "Your Company",
+    "input3": {
+      "label": "Company Name",
+      "placeholder": "Enter your company name"
+    },
+    "radio3": {
+      "label": "Years of Existence",
+      "option1": "Less than 3 years",
+      "option2": "3-5 years",
+      "option3": "More than 5 years"
+    },
+    "radio4": {
+      "label": "Number of Employees",
+      "option1": "1-3 employees",
+      "option2": "4-10 employees",
+      "option3": "More than 10 employees"
+    },
+    "radio5": {
+      "label": "Industry Sector",
+      "option1": "1-3 employees",
+      "option2": "4-10 employees",
+      "option3": "More than 10 employees"
+    },
+    "input4": {
+      "label": "Location",
+      "placeholder": "Enter your location"
+    },
+    "input5": {
+      "label": "Image of Your Product/Service",
+      "placeholder": "Upload an image"
+    }
+  },    
+  "question": "20 questions and receive a personalized report",
+  "button": {
+      "previous": "Previous",
+      "next": "Next"
+  }
+}

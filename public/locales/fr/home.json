@@ -1,0 +1,45 @@
+{
+    "welcome": "Bienvenue chez ",
+    "entreprise": "Optimus marketing",
+    "text": "Nous aidons les entreprises et les entrepreneurs à réussir dans un environnement compétitif. Grâce à nos services d'analyse de marché, de stratégie d'affaires et de développement commercial, nous vous offrons des solutions sur mesure pour maximiser votre chiffre d'affaires et renforcer votre position sur le marché.",
+    "title": "Vous etes Directeur marketing, Entrepreuneur,Directeur commercial",
+    "subtitle": "EVALUEZ VOTRE MIXTE MARKETING",
+    "button": "Démarrer",
+    "more": "En savoir plus",
+    "approach": "Notre approche",
+    "approach-text": "Nous croyons en une approche sur mesure. Chaque entreprise est unique, c’est pourquoi nous prenons le temps de comprendre vos besoins spécifiques pour offrir des solutions adaptées à vos objectifs.",
+    "approach-text2": "Notre accompagnement se distingue par :",
+    "carousel-text": {
+        "text1": "Un diagnostic précis de votre situation",
+        "text2": "Des solutions créatives et innovantes",
+        "text3": "Un suivi rigoureux pour garantir la réussite de votre projet"
+    },
+    "partner": "Temoignages",
+    "testimonials": {
+        "testimonial1": {
+        "text": "Grâce à Optimus Marketing, j'ai reçu une analyse approfondie de mon marché cible et des informations précieuses qui ont aidé à développer mon entreprise.",
+        "owner": "Sarah Johnson",
+        "job": "Fondatrice, Johnson Consulting"
+        },
+        "testimonial2": {
+        "text": "Optimus Marketing nous a aidés à repenser notre entonnoir de vente, et notre taux de conversion a augmenté de 30 % en seulement trois mois.",
+        "owner": "Michael Evans",
+        "job": "PDG, Evans Tech Solutions"
+        },
+        "testimonial3": {
+        "text": "Grâce à l'évaluation détaillée d'Optimus Marketing, j'ai pu optimiser mes campagnes publicitaires et améliorer mon retour sur investissement de manière significative.",
+        "owner": "Lisa Martin",
+        "job": "Directrice Marketing, GreenWave Ventures"
+        }
+    },
+    "about": {
+        "button": "Accueil",
+        "title": "A Propos",
+        "text": "Nous aidons les entreprises et les entrepreneurs à réussir dans un environnement compétitif. Grâce à nos services d'analyse de marché, de stratégie d'affaires et de dévelop-pement commercial, nous vous offrons des solutions sur mesure pour maximiser votre chiffre d'affaires et renforcer votre position sur le marché."
+    },
+    "evaluate": {
+        "button": "Accueil",
+        "title": "Pourquoi évaluer",
+        "text": "L'analyse marketing vous permet de démontrer clairement les points forts et les points faibles d'une approche, mais aussi les raisons de sa réussite ou de son échec. Vous êtes ainsi en mesure de convaincre vos interlocuteurs d'opérer un changement."
+    }
+}

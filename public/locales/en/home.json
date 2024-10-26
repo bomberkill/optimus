@@ -1,0 +1,47 @@
+{
+    "welcome": "Welcome to ",
+    "entreprise": "Optimus marketing",
+    "text": "We help businesses and entrepreneurs succeed in a competitive environment. Through our market analysis, business strategy, and commercial development services, we offer you customized solutions to maximize your revenue and strengthen your market position.",
+    "title": "You are a Marketing Director, Entrepreneur, or Sales Director",
+    "subtitle": "EVALUATE YOUR MARKETING MIX",
+    "button": "Start",
+    "more": "Learn more",
+    "approach": "Our approach",
+    "approach-text": "We believe in a customized approach. Every business is unique, which is why we take the time to understand your specific needs to offer solutions that are aligned with your goals.",
+    "approach-text2": "Our support stands out for:",
+    "carousel-text": {
+        "text1": "A precise diagnosis of your situation",
+        "text2": "Creative and innovative solutions",
+        "text3": "Thorough follow-up to ensure the success of your project"
+    },
+    "partner": "Testimonies",
+    "testimonials": {
+        "testimonial1": {
+        "text": "Thanks to Optimus Marketing, I received an in-depth analysis of my target market and valuable insights that helped boost my business.",
+        "owner": "Sarah Johnson",
+        "job": "Founder, Johnson Consulting"
+        },
+        "testimonial2": {
+        "text": "Optimus Marketing helped us redesign our sales funnel, and our conversion rate has increased by 30% in just three months.",
+        "owner": "Michael Evans",
+        "job": "CEO, Evans Tech Solutions"
+        },
+        "testimonial3": {
+        "text": "With Optimus Marketing's detailed evaluation, I was able to optimize my advertising campaigns and improve my ROI significantly.",
+        "owner": "Lisa Martin",
+        "job": "Marketing Director, GreenWave Ventures"
+        }
+    },
+    "about": {
+        "button": "Home",
+        "title": "About",
+        "text": "We help businesses and entrepreneurs succeed in a competitive environment. Through our market analysis, business strategy, and business development services, we offer you tailor-made solutions to maximize your revenue and strengthen your market position."
+    },
+    "evaluate": {
+        "button": "Home",
+        "title": "Why evaluate",
+        "text": "Marketing analysis allows you to clearly demonstrate the strengths and weaknesses of an approach, as well as the reasons for its success or failure. This enables you to convince your audience to make a change."
+    }
+
+
+}
