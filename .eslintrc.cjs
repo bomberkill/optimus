@@ -13,5 +13,12 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'import/extensions': 'off',
+     "arrow-body-style": "off",
+     "no-console" : "off",
+     "no-else-return" : "off",
+     "consistent-return" : "off",
+     "no-useless-return" : "off",
+     "@typescript-eslint/no-unused-vars": "off",
+     "radix" : "off",
   },
 };
