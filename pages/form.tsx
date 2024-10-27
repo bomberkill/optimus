@@ -32,7 +32,7 @@ import { theme } from '@/theme';
 export default function Form() {
   const { t } = useTranslation('form');
   const isSmallScreen = useMediaQuery('(min-width: 576px)');
-  const [currentStep, setCurrentStep] = useState('step3');
+  const [currentStep, setCurrentStep] = useState('step1');
   const [randomCode, setRandomCode] = useState('');
   const [activeResend, setActiveResend] = useState(false);
   const [codeSent, setCodeSent] = useState<'sent' | 'notSent' | undefined>(undefined);
