@@ -244,7 +244,7 @@ export default function Form() {
       [step]: values,
     }));
     console.log('values', values);
-  }
+  };
   useEffect(() => {
     const savedStep = localStorage.getItem('currentStep');
     const savedData = localStorage.getItem('formData');
@@ -2348,11 +2348,7 @@ export default function Form() {
           w={isSmallScreen ? 250 : 100}
           color={theme.colors?.red?.[0]}
         >
-          <Text
-            fz={isSmallScreen ? theme.fontSizes?.md : theme.fontSizes?.sm}
-            fw={400}
-            ta="center"
-          >
+          <Text fz={isSmallScreen ? theme.fontSizes?.md : theme.fontSizes?.sm} fw={400} ta="center">
             {isLoading && currentStep === 'step1' ? (
               <Loader size={30} c={theme.colors?.white?.[0]} />
             ) : (
@@ -2363,7 +2359,7 @@ export default function Form() {
       </Group>
     </Container>
   );
-};
+}
 export const getStaticProps: GetStaticProps = async ({ locale = 'fr' }) => {
   return {
     props: {
